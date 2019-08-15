@@ -2,7 +2,7 @@ const amqp = require("amqplib");
 const { amqpAddress, noAuthRawMessageQ } = require("./config");
 const { logger } = require("./logger");
 
-amqp.connect()
+amqp.connect(amqpAddress)
     .then(function(conn) {
         return conn.createChannel().then(ch => {
             var handleMessage = m => {

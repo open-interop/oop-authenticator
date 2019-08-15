@@ -4,5 +4,5 @@ dotenv.config();
 
 module.exports = {
     amqpAddress: process.env.AMQP_ADDRESS,
-    noAuthRawMessageQ: process.env.NO_AUTH_RAW_MESSAGE_Q,
+    noAuthRawMessageQ: process.env.NO_AUTH_RAW_MESSAGE_Q
 };
