@@ -60,4 +60,3 @@ amqp.connect(config.amqpAddress)
         });
     })
     .catch(logger.error);
-
