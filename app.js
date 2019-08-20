@@ -15,8 +15,8 @@ deviceManager.on("deviceAdded", device => {
     authenticationManager.addDevice(device);
 });
 
-deviceManager.on("deviceRemoved", device => {
-    authenticationManager.removeDevice(device);
+deviceManager.on("deviceDeleted", device => {
+    authenticationManager.deleteDevice(device);
 });
 
 deviceManager.on("deviceUpdated", device => {
