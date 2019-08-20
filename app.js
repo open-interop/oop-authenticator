@@ -1,13 +1,32 @@
 const amqp = require("amqplib");
 const config = require("./config");
 const { logger } = require("./logger");
-const Authenticator = require("./lib/Authenticator");
-const data = require("./fake-device-data");
+const AuthenticationManager = require("./lib/AuthenticationManager");
+const DeviceManager = require("./lib/DeviceManager");
 
-Authenticator.importDevices(data);
+const deviceManager = new DeviceManager();
+const authenticationManager = new AuthenticationManager();
+
+deviceManager.on("devicesLoaded", devices => {
+    authenticationManager.importDevices(devices);
+});
+
+deviceManager.on("deviceAdded", device => {
+    authenticationManager.addDevice(device);
+});
+
+deviceManager.on("deviceRemoved", device => {
+    authenticationManager.removeDevice(device);
+});
+
+deviceManager.on("deviceUpdated", device => {
+    authenticationManager.updateDevice(device);
+});
 
 amqp.connect(config.amqpAddress)
     .then(conn => {
+        deviceManager.setupAmqpListener(conn);
+
         return conn.createChannel().then(ch => {
             var handleMessage = message => {
                 try {
@@ -16,7 +35,9 @@ amqp.connect(config.amqpAddress)
 
                     logger.info(`Message originated from ${messageData.ip}.`);
 
-                    var device = Authenticator.authenticateMessage(messageData);
+                    var device = authenticationManager.authenticateMessage(
+                        messageData
+                    );
 
                     if (device !== false) {
                         logger.info(
