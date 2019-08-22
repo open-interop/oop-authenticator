@@ -33,15 +33,15 @@ amqp.connect(config.amqpAddress)
                     var content = message.content.toString("utf-8");
                     var messageData = JSON.parse(content);
 
-                    logger.info(`Message originated from ${messageData.ip}.`);
+                    logger.info(`Attempting to authenticate message ${messageData.uuid}`);
 
                     var device = authenticationManager.authenticateMessage(
-                        messageData
+                        messageData.message
                     );
 
                     if (device !== false) {
                         logger.info(
-                            `Message originated from ${messageData.ip} authenticated.`
+                            `Message ${messageData.uuid} authenticated.`
                         );
 
                         var toSend = {
@@ -67,7 +67,7 @@ amqp.connect(config.amqpAddress)
                         ch.ack(message);
 
                         logger.info(
-                            `Message originated from ${messageData.ip} not authenticated.`
+                            `Message ${messageData.uuid} not authenticated.`
                         );
                     }
                 } catch (e) {
