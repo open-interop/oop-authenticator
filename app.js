@@ -44,12 +44,9 @@ amqp.connect(config.amqpAddress)
                             `Message ${messageData.uuid} authenticated.`
                         );
 
-                        var toSend = {
-                            device: device,
-                            message: messageData
-                        };
+                        messageData.device = device;
 
-                        var json = JSON.stringify(toSend);
+                        var json = JSON.stringify(messageData);
                         if (
                             ch.publish(
                                 config.exchangeName,
