@@ -31,9 +31,7 @@ module.exports = (broker, config, logger) => {
         );
 
         if (device !== false) {
-            logger.info(
-                `Message ${messageData.uuid} authenticated.`
-            );
+            logger.info(`Message ${messageData.uuid} authenticated.`);
 
             messageData.device = device;
 
@@ -43,9 +41,7 @@ module.exports = (broker, config, logger) => {
                 messageData
             );
         } else {
-            logger.info(
-                `Message ${messageData.uuid} not authenticated.`
-            );
+            logger.info(`Message ${messageData.uuid} not authenticated.`);
         }
     });
 };
