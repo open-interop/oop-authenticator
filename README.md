@@ -10,9 +10,10 @@ Multiple path, value pairs can be given and *all* must match for the message to 
 
 ## Installation
 
-Simply run `yarn install` to install the node dependencies.
-
-Once everything is installed the service can be started with `yarn start`.
+- Ensure node is installed with version at least `10.16.2` LTS.
+- Install `yarn` if necessary (`npm install -g yarn`).
+- Run `yarn install` to install the node dependencies.
+- Once everything is installed the service can be started with `yarn start`.
 
 ## Configuration
 
