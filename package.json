@@ -14,7 +14,7 @@
     "dotenv": "^8.0.0",
     "node-fetch": "^2.6.0",
     "object-hash": "^1.3.1",
-    "oop-node-common": "https://github.com/open-interop/oop-node-common#develop"
+    "oop-node-common": "^1.0.1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^8.1.0",
