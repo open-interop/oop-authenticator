@@ -3,7 +3,7 @@ const DeviceManager = require("./lib/DeviceManager");
 
 module.exports = (broker, config, logger) => {
     const deviceManager = new DeviceManager(broker, config, logger);
-    const authenticationManager = new AuthenticationManager();
+    const authenticationManager = new AuthenticationManager(logger);
 
     deviceManager.on("devicesLoaded", devices => {
         authenticationManager.importDevices(devices);
@@ -21,12 +21,12 @@ module.exports = (broker, config, logger) => {
         authenticationManager.updateDevice(device);
     });
 
-    broker.consume(config.authenticatorInputQ, message => {
-        var messageData = message.content;
+    broker.consume(config.authenticatorInputQ, async message => {
+        const messageData = message.content;
 
         logger.info(`Attempting to authenticate message ${messageData.uuid}`);
 
-        var device = authenticationManager.authenticateMessage(
+        const device = await authenticationManager.authenticateMessage(
             messageData.message
         );
 
