@@ -1,6 +1,6 @@
 {
   "name": "oop-authenticator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Authenticator service for OpenInterop",
   "main": "app.js",
   "license": "AGPL-3.0",
